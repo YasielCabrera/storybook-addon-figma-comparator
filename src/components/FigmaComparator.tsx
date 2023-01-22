@@ -63,7 +63,7 @@ export const FigmaComparator: React.FC<FigmaParams> = ({
   );
 };
 
-const Container = styled.div<{ style?: React.CSSProperties }>(({ style }) => ({
+const Container = styled.div(({ style }: { style: object }) => ({
   position: "absolute",
   left: 0,
   top: 0,

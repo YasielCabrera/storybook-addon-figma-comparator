@@ -16,7 +16,7 @@ export const ComponentImages: React.FC<ComponentImagesProps> = ({
 
   useEffect(() => {
     if (typeof component === "string" || isFigmaNode(component)) {
-      setImages([[0, component]]);
+      setImages([['0', component]]);
     } else {
       const keys = Object.keys(component);
       const newImages = Object.entries(component)

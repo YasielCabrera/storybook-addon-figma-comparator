@@ -58,17 +58,14 @@ export const FigmaImage: React.FC<FigmaImage> = ({ image }) => {
         <img src={imageSrc} onLoad={() => setImageLoaded(false)} />
       </ImageWrapper>
       <ImageActions>
-        <Button
-          href={imageSrc}
-          target="_blank"
-          isLink
-          outline
-          style={{ marginRight: "1rem" }}
-        >
-          View Image
-        </Button>
+        <span style={{ marginRight: "1rem" }}>
+          {" "}
+          <Button href={imageSrc} isLink outline>
+            View Image
+          </Button>
+        </span>
         {typeof image === "string" && (
-          <Button href={image} target="_blank" isLink outline>
+          <Button href={image} isLink outline>
             View on Figma
           </Button>
         )}
