@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "description": "Compare components with Figma Components",
   "keywords": [
-    "storybook-addons figma", "storybook-addons"
+    "storybook-addons figma",
+    "storybook-addons"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/YasielCabrera/storybook-addon-figma-comparator"
   },
-  "author": "Yasiel Cabrera <yasiel9506@gmail.com>",
+  "author": "Yasiel Cabrera <yasiel.cabrera@cabyas.com>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -45,11 +46,13 @@
     "@babel/preset-typescript": "^7.13.0",
     "@storybook/addon-essentials": "^6.5.8",
     "@storybook/react": "^6.5.8",
+    "@types/react-dom": "^18.0.10",
     "auto": "^10.3.0",
     "babel-loader": "^8.1.0",
     "boxen": "^5.0.1",
     "concurrently": "^6.2.0",
     "dedent": "^0.7.0",
+    "figma-js": "^1.16.0",
     "prettier": "^2.3.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
