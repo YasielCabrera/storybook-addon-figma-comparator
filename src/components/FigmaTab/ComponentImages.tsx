@@ -18,7 +18,6 @@ export const ComponentImages: React.FC<ComponentImagesProps> = ({
     if (typeof component === "string" || isFigmaNode(component)) {
       setImages([['0', component]]);
     } else {
-      const keys = Object.keys(component);
       const newImages = Object.entries(component)
         .filter((entry) => !Number.isNaN(Number(entry[0])))
         .sort((a, b) => Number(a[0]) - Number(b[0]));
