@@ -3,23 +3,43 @@ export type IconWidthType = {
   height?: string | number;
 };
 
-export type FigmaNode = {
+export type FigmaComponentNode = {
   fileId: string;
   nodeId: string;
 };
 
+export type FigmaComponentLink = string;
+
+export type FigmaComponent = FigmaComponentNode | FigmaComponentLink;
+
+export type FigmaComponentWithOptions<
+  T extends FigmaComponent = FigmaComponent
+> = {
+  component: T;
+  options?: FigmaParamsOptions;
+};
+
 export type FigmaComponentSet = {
-  [key: number]: string | FigmaNode;
+  [key: number]: FigmaComponent | FigmaComponentWithOptions;
 };
 
 export type FigmaParamsOptions = {
   style?: React.CSSProperties;
+  componentStyle?: React.CSSProperties;
   opacity?: number;
 };
 
 export type FigmaParams = {
-  component: string | FigmaNode | FigmaComponentSet;
+  component: FigmaComponent | FigmaComponentSet;
   options?: FigmaParamsOptions;
+};
+
+export type ComparatorProps = {
+  component: FigmaComponent | FigmaComponentSet;
+  nodeId: string;
+  fileId: string;
+  options?: FigmaParamsOptions;
+  currentComponentOptions?: FigmaParamsOptions;
 };
 
 export type WindowSize = {
@@ -27,13 +47,20 @@ export type WindowSize = {
   height: number;
 };
 
-export function isFigmaNode(
-  component: FigmaNode | unknown
-): component is FigmaNode {
-  const nodeComponent = component as FigmaNode;
+export function isFigmaComponentNode(
+  component: FigmaComponentNode | unknown
+): component is FigmaComponentNode {
+  const nodeComponent = component as FigmaComponentNode;
   return (
     Object.keys(component).length === 2 &&
     !!nodeComponent.fileId &&
     !!nodeComponent.nodeId
   );
+}
+
+export function isFigmaComponentWithOptions(
+  component: FigmaComponentWithOptions | unknown
+): component is FigmaComponentWithOptions {
+  const componentWithOptions = component as FigmaComponentWithOptions;
+  return !!componentWithOptions.component;
 }

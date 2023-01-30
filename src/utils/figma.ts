@@ -1,10 +1,19 @@
 import * as Figma from "figma-js";
-import { FigmaComponentSet, FigmaNode, isFigmaNode } from "../types";
+import {
+  FigmaComponent,
+  FigmaComponentNode,
+  FigmaComponentSet,
+  FigmaComponentWithOptions,
+  isFigmaComponentNode,
+  isFigmaComponentWithOptions,
+} from "../types";
 
 const FIGMA_TOKEN = process.env.STORYBOOK_FIGMA_ACCESS_TOKEN;
 const figmaClient = Figma.Client({ personalAccessToken: FIGMA_TOKEN });
 
-export async function getFigmaImage(componentNode: FigmaNode): Promise<string> {
+export async function getFigmaImage(
+  componentNode: FigmaComponentNode
+): Promise<string> {
   try {
     const { data } = await figmaClient.fileImages(componentNode.fileId, {
       ids: [componentNode.nodeId],
@@ -18,9 +27,10 @@ export async function getFigmaImage(componentNode: FigmaNode): Promise<string> {
 }
 
 export function getCurrentComponentNode(
-  component: string | FigmaNode | FigmaComponentSet,
-  viewportWidth: number
-): FigmaNode | undefined {
+  component: FigmaComponent | FigmaComponentWithOptions | FigmaComponentSet,
+  viewportWidth: number,
+  options?: unknown
+): FigmaComponentWithOptions<FigmaComponentNode> | undefined {
   if (typeof component === "string") {
     const url = new URL(component);
     const nodeId = url.searchParams.get("node-id");
@@ -29,11 +39,22 @@ export function getCurrentComponentNode(
       throw new Error("Invalid Figma link");
     }
     return {
-      nodeId,
-      fileId,
+      component: {
+        nodeId,
+        fileId,
+      },
+      options,
     };
-  } else if (isFigmaNode(component)) {
-    return component;
+  } else if (isFigmaComponentNode(component)) {
+    return {
+      component,
+    };
+  } else if (isFigmaComponentWithOptions(component)) {
+    return getCurrentComponentNode(
+      component.component,
+      viewportWidth,
+      component.options
+    );
   } else {
     const sortedBreakpoints = Object.keys(component)
       .map((key) => parseInt(key))

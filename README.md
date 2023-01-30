@@ -49,8 +49,8 @@ Primary.args = {
 Primary.parameters = {
   figma: {
     component:
-      "https://www.figma.com/file/asd879a34nlkqj247/Example?node-id=10486%3A103217",
-  },
+      "https://www.figma.com/file/ZZZ/file-name?node-id=XXX%3AYYY",
+  } as FigmaParams,
 };
 ```
 
@@ -58,20 +58,23 @@ Primary.parameters = {
 
 ```ts
 figma = {
-  component: string | FigmaNode | FigmaComponentSet;
+  component: FigmaComponent | FigmaComponentSet;
   options?: {
     style?: React.CSSProperties;
+    componentStyle?: React.CSSProperties;
     opacity?: number;
   };
 }
 
-FigmaNode = {
+FigmaComponentNode = {
   fileId: string;
   nodeId: string;
 }
 
+FigmaComponent = string | FigmaComponentNode;
+
 FigmaComponentSet = {
-  [key: number]: string | FigmaNode;
+  [key: number]: FigmaComponent;
 };
 ```
 
@@ -90,6 +93,28 @@ Primary.parameters = {
     }
   },
 };
+
+// the nodes can have any of the following formats:
+node1 = "https://www.figma.com/file/ZZZ/file-name?node-id=XXX%3AYYY";
+node2 = {
+  fileId: "ZZZ",
+  nodeId: "XXX:YYY"
+}
+node3 = {
+  // the component can be a string or a FigmaComponentNode like `node1` or `node2`
+  component: "https://www.figma.com/file/ZZZ/file-name?node-id=XXX%3AYYY",
+  // this options will override the component `options`
+  options: {
+    style: {
+      // figma component options
+      padding: 12,
+    },
+    componentStyle: {
+      // story component options. This way you can set a fixed width to match exactly with the Figma image
+      width: 650,
+    },
+  }
+}
 ```
 
 In the previous example, the Figma comparator will fetch the Figma image of the component if the viewport width is between 0 and 767, the image from node 2 if the viewport width is between 768 and 1439 and the image from the node 3 if the viewport width is greater than 1440.

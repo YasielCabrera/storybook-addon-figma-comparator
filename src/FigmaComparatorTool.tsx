@@ -1,14 +1,12 @@
 import React, { useCallback } from "react";
-import { useGlobals, useParameter } from "@storybook/api";
+import { useGlobals } from "@storybook/api";
 import { IconButton } from "@storybook/components";
 import { TOOL_ID, PARAM_KEY } from "./constants";
 import { FigmaOutline } from "./components/icons/FigmaOutline";
 import { FigmaColors } from "./components/icons/FigmaColors";
-import { FigmaParams } from "./types";
 
 export const FigmaComparatorTool = () => {
   const [globals, updateGlobals] = useGlobals();
-  const figmaParams = useParameter<FigmaParams | undefined>("figma");
 
   const compareWithFigma = globals[PARAM_KEY] || false;
 
@@ -19,10 +17,6 @@ export const FigmaComparatorTool = () => {
       }),
     [compareWithFigma]
   );
-
-  if (!figmaParams?.component) {
-    return null;
-  }
 
   return (
     <IconButton
