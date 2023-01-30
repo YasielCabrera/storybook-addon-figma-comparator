@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from "react";
 import type { DecoratorFunction } from "@storybook/addons";
 import { useGlobals, useParameter } from "@storybook/addons";
 import { FIGMA_WRAPPER_CLASS, PARAM_KEY } from "../constants";
-import { FigmaParams } from "../types";
+import { FigmaParams, FigmaParamsOptions } from "../types";
 import { FigmaComparator } from "../components/FigmaComparator";
 import { NoFigmaEnabled } from "../components/NoFigmaEnabled";
 import { useWindowWidth } from "../hooks/useWindowWidth";
@@ -14,6 +14,9 @@ type ComparatorState = {
   hasFigmaComponent: boolean;
   isInDocs: boolean;
   figmaParams: FigmaParams;
+  nodeId: string;
+  fileId: string;
+  comparatorOptions: FigmaParamsOptions
 };
 
 export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
@@ -22,21 +25,21 @@ export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
   const figmaParams = useParameter<FigmaParams | undefined>("figma");
   const hasFigmaComponent = !!figmaParams?.component;
 
-  // const windowSize = useWindowWidth();
-  // const [fileId, nodeId, comparatorOptions] = useMemo(() => {
-  //   if (!figmaParams) {
-  //     return [null, null, null];
-  //   }
-  //   const figmaNode = getCurrentComponentNode(
-  //     figmaParams?.component,
-  //     windowSize.width
-  //   );
-  //   return [
-  //     figmaNode?.component?.fileId,
-  //     figmaNode?.component?.nodeId,
-  //     figmaNode?.options,
-  //   ];
-  // }, [figmaParams, windowSize]);
+  const windowSize = useWindowWidth();
+  const [fileId, nodeId, comparatorOptions] = useMemo(() => {
+    if (!figmaParams) {
+      return [null, null, null];
+    }
+    const figmaNode = getCurrentComponentNode(
+      figmaParams?.component,
+      windowSize.width
+    );
+    return [
+      figmaNode?.component?.fileId,
+      figmaNode?.component?.nodeId,
+      figmaNode?.options,
+    ];
+  }, [figmaParams, windowSize]);
 
   const isInDocs = context.viewMode === "docs";
   useEffect(() => {
@@ -51,8 +54,11 @@ export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
       isInDocs,
       figmaParams,
       hasFigmaComponent,
+      nodeId,
+      fileId,
+      comparatorOptions,
     });
-  }, [compareWithFigma, figmaParams]);
+  }, [compareWithFigma, figmaParams, fileId, nodeId, comparatorOptions]);
 
   return StoryFn();
 
@@ -96,16 +102,12 @@ function showFigmaImage(selector: string, state: ComparatorState) {
   }
 
   if (state.compareWithFigma) {
-    const figmaNode = getCurrentComponentNode(
-      state?.figmaParams?.component,
-      1000
-    );
     ReactDOM.render(
       state.figmaParams?.component ? (
         <FigmaComparator
-          fileId={figmaNode?.component?.fileId}
-          nodeId={figmaNode?.component?.nodeId}
-          currentComponentOptions={figmaNode?.options}
+          fileId={state?.fileId}
+          nodeId={state?.nodeId}
+          currentComponentOptions={state?.comparatorOptions}
           component={state.figmaParams?.component}
           options={state.figmaParams?.options}
         />
