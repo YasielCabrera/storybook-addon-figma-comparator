@@ -8,8 +8,8 @@
  *
  * https://storybook.js.org/docs/react/writing-stories/decorators#gatsby-focus-wrapper
  */
-import { withRoundTrip } from "../withRoundTrip";
+// import { withRoundTrip } from "../withRoundTrip";
 
 import { withFigmaComparator } from "../decorators/withFigmaComparator";
 
-export const decorators = [withFigmaComparator, withRoundTrip];
+export const decorators = [withFigmaComparator];

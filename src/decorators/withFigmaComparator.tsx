@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import type { DecoratorFunction } from "@storybook/addons";
-import { useGlobals } from "@storybook/addons";
+import { useGlobals, useParameter } from "@storybook/addons";
 import { FIGMA_WRAPPER_CLASS, PARAM_KEY } from "../constants";
 import { FigmaParams } from "../types";
 import { FigmaComparator } from "../components/FigmaComparator";
@@ -8,10 +8,10 @@ import { NoFigmaEnabled } from "../components/NoFigmaEnabled";
 import { useWindowWidth } from "../hooks/useWindowWidth";
 import { getCurrentComponentNode } from "../utils/figma";
 
-export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
+export const withFigmaComparator: DecoratorFunction = (StoryFn) => {
   const [globals] = useGlobals();
-  const compareWithFigma = globals[PARAM_KEY];
-  const figmaParams = context.parameters?.figma as FigmaParams;
+  const compareWithFigma = !!globals[PARAM_KEY];
+  const figmaParams = useParameter<FigmaParams | undefined>('figma');
   const hasFigmaComponent = !!figmaParams?.component;
 
   const windowSize = useWindowWidth();
