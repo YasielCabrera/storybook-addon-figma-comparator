@@ -16,6 +16,9 @@ export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
 
   const windowSize = useWindowWidth();
   const [fileId, nodeId, comparatorOptions] = useMemo(() => {
+    if (!figmaParams) {
+      return [null, null, null];
+    }
     const figmaNode = getCurrentComponentNode(
       figmaParams?.component,
       windowSize.width
