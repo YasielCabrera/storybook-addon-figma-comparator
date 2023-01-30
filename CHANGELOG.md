@@ -1,3 +1,15 @@
+# v0.0.7 (Mon Jan 30 2023)
+
+#### 🐛 Bug Fix
+
+- feat:component options for each component in sets [#1](https://github.com/YasielCabrera/storybook-addon-figma-comparator/pull/1) ([@YasielCabrera](https://github.com/YasielCabrera))
+
+#### Authors: 1
+
+- Yasiel Cabrera ([@YasielCabrera](https://github.com/YasielCabrera))
+
+---
+
 # v0.0.6 (Mon Jan 23 2023)
 
 #### ⚠️ Pushed to `main`
