@@ -1,3 +1,15 @@
+# v0.0.8 (Mon Jan 30 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix null issue ([@YasielCabrera](https://github.com/YasielCabrera))
+
+#### Authors: 1
+
+- Yasiel Cabrera ([@YasielCabrera](https://github.com/YasielCabrera))
+
+---
+
 # v0.0.7 (Mon Jan 30 2023)
 
 #### 🐛 Bug Fix
