@@ -1,18 +1,15 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { styled, themes, convert } from "@storybook/theming";
-import { FigmaParams, isFigmaNode } from "../types";
-import { useWindowWidth } from "../hooks/useWindowWidth";
-import { getCurrentComponentNode, getFigmaImage } from "../utils/figma";
+import { ComparatorProps, isFigmaComponentNode } from "../types";
+import { getFigmaImage } from "../utils/figma";
 
-export const FigmaComparator: React.FC<FigmaParams> = ({
+export const FigmaComparator: React.FC<ComparatorProps> = ({
   component,
+  fileId,
+  nodeId,
+  currentComponentOptions,
   options,
 }) => {
-  const windowSize = useWindowWidth();
-  const [fileId, nodeId] = useMemo(() => {
-    const figmaNode = getCurrentComponentNode(component, windowSize.width);
-    return [figmaNode?.fileId, figmaNode?.nodeId];
-  }, [component, windowSize]);
   const [componentSrc, setComponentSrc] = useState<string | undefined>();
 
   const [loadingImage, setLoadingImage] = useState<boolean>(false);
@@ -22,19 +19,23 @@ export const FigmaComparator: React.FC<FigmaParams> = ({
     if (fileId && nodeId) {
       setLoadingImage(true);
       setError(undefined);
-      getFigmaImage({ fileId, nodeId }).then((imageUrl) => {
-        if (imageUrl) {
-          setComponentSrc(imageUrl);
-        } else {
-          setLoadingImage(false);
-          setError(
-            "The configured image for the current viewport width is invalid or can not be fetched."
-          );
-        }
-      });
+      getFigmaImage({ fileId, nodeId })
+        .then((imageUrl) => {
+          if (imageUrl) {
+            setComponentSrc(imageUrl);
+          } else {
+            setLoadingImage(false);
+            setError(
+              "The configured image for the current viewport width is invalid or can not be fetched."
+            );
+          }
+        })
+        .catch((error) =>
+          setError(`An error ocurred while loading the image. "${error}"`)
+        );
     } else {
       let errorMessage = "There is not image configured for this component.";
-      if (!isFigmaNode(component) && typeof component !== "string") {
+      if (!isFigmaComponentNode(component) && typeof component !== "string") {
         errorMessage =
           "There is not image configured for the current viewport width";
       }
@@ -44,7 +45,12 @@ export const FigmaComparator: React.FC<FigmaParams> = ({
 
   return (
     <>
-      <Container style={options?.style}>
+      <Container
+        style={{
+          ...options?.style,
+          ...currentComponentOptions?.style,
+        }}
+      >
         {fileId && nodeId && (
           <img
             src={componentSrc}

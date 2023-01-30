@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@storybook/theming";
 import { Button } from "@storybook/components";
-import type { FigmaNode } from "../../types";
+import type { FigmaComponent } from "../../types";
 import { getFigmaImage } from "../../utils/figma";
 
 type FigmaImage = {
-  image: string | FigmaNode;
+  image: FigmaComponent;
 };
 
 export const FigmaImage: React.FC<FigmaImage> = ({ image }) => {
