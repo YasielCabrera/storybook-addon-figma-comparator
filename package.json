@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-figma-comparator",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Compare components with Figma Components",
   "keywords": [
     "storybook-addons figma",
