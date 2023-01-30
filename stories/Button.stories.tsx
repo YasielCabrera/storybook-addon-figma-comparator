@@ -90,7 +90,7 @@ Secondary.parameters = {
       fileId: "fileID",
       nodeId: "nodeID",
     },
-  },
+  } as FigmaParams,
 };
 
 export const Large = Template.bind({});
@@ -112,24 +112,6 @@ Large.parameters = {
         options: {
           style: {},
         },
-      },
-    },
-  } as FigmaParams,
-};
-
-const X = {};
-X.parameters = {
-  figma: {
-    component: {
-      0: "https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=11486%3A103217&t=rZgNKjWVAVo99Z9K-4",
-      500: {
-        nodeId: "",
-        fileId: "",
-      },
-      800: {
-        component:
-          "https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13486%3A103217&t=rZgNKjWVAVo99Z9K-4",
-        options: {},
       },
     },
   } as FigmaParams,
