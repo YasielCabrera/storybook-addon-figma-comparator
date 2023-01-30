@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom";
 import React, { useEffect } from "react";
 import type { DecoratorFunction } from "@storybook/addons";
-import { useGlobals, useParameter } from "@storybook/addons";
 import { FIGMA_WRAPPER_CLASS, PARAM_KEY } from "../constants";
 import { FigmaParams } from "../types";
 import { FigmaComparator } from "../components/FigmaComparator";
@@ -18,9 +17,8 @@ type ComparatorState = {
 };
 
 export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
-  const [globals] = useGlobals();
-  const compareWithFigma = !!globals[PARAM_KEY];
-  const figmaParams = useParameter<FigmaParams | undefined>("figma");
+  const compareWithFigma = !!context.globals[PARAM_KEY];
+  const figmaParams = context.parameters?.figma as FigmaParams;
   const hasFigmaComponent = !!figmaParams?.component;
 
   const { width: windowWidth } = useWindowWidth();
@@ -43,7 +41,6 @@ export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
   }, [compareWithFigma, figmaParams, windowWidth]);
 
   return StoryFn();
-
 };
 
 function showFigmaImage(selector: string, state: ComparatorState) {
@@ -67,7 +64,10 @@ function showFigmaImage(selector: string, state: ComparatorState) {
       state?.figmaParams?.component,
       state.windowWidth
     );
-    Object.assign((rootElement as HTMLDivElement).style, figmaNode?.options?.componentStyle || {})
+    Object.assign(
+      (rootElement as HTMLDivElement).style,
+      figmaNode?.options?.componentStyle || {}
+    );
 
     ReactDOM.render(
       state.figmaParams?.component ? (
