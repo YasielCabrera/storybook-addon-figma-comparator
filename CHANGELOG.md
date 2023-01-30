@@ -1,3 +1,15 @@
+# v0.0.10 (Mon Jan 30 2023)
+
+#### 🐛 Bug Fix
+
+- Fix: "Storybook preview hooks can only be called inside decorators and story functions" [#3](https://github.com/YasielCabrera/storybook-addon-figma-comparator/pull/3) ([@YasielCabrera](https://github.com/YasielCabrera))
+
+#### Authors: 1
+
+- Yasiel Cabrera ([@YasielCabrera](https://github.com/YasielCabrera))
+
+---
+
 # v0.0.9 (Mon Jan 30 2023)
 
 #### ⚠️ Pushed to `main`
