@@ -1,0 +1,9 @@
+{
+  "labels": [
+    { "releaseType": "major", "name": "Version: Major" },
+    { "releaseType": "minor", "name": "Version: Minor" },
+    { "releaseType": "patch", "name": "Version: Patch" },
+    { "releaseType": "skip", "name": "NO!" },
+    { "releaseType": "release", "name": "Autobots, rollout!" }
+  ]
+}
