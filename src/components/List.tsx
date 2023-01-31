@@ -67,13 +67,13 @@ export const ListItem: React.FC<ListItemProps> = ({ item }) => {
     <Fragment>
       <Wrapper>
         <HeaderBar onClick={() => onToggle(!open)} role="button">
-          <Icon
+          {/* <Icon
             icon="chevrondown"
             color={convert(themes.normal).appBorderColor}
             style={{
               transform: `rotate(${open ? 0 : -90}deg)`,
             }}
-          />
+          /> */}
           {item.title}
         </HeaderBar>
       </Wrapper>

@@ -10,13 +10,11 @@ export const FigmaComparatorTool = () => {
 
   const compareWithFigma = globals[PARAM_KEY] || false;
 
-  const toggleMyTool = useCallback(
-    () =>
-      updateGlobals({
-        [PARAM_KEY]: !compareWithFigma,
-      }),
-    [compareWithFigma]
-  );
+  const toggleMyTool = useCallback(() => {
+    updateGlobals({
+      [PARAM_KEY]: !compareWithFigma,
+    });
+  }, [compareWithFigma]);
 
   return (
     <IconButton

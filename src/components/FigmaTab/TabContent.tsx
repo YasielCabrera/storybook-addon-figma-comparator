@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "@storybook/theming";
-import { Title, Source } from "@storybook/components";
+// import { Title, Source } from "@storybook/components";
 import { FigmaParams } from "../../types";
 import { ComponentImages } from "./ComponentImages";
 
@@ -13,7 +13,7 @@ export const TabContent: React.FC<TabContentProps> = ({ figmaParams }) => {
     return (
       <TabWrapper>
         <TabInner>
-          <Title>Figma Comparator</Title>
+          <h1>Figma Comparator</h1>
           <p>
             This component/variant is not configured to use the Figma
             Comparator.
@@ -26,27 +26,27 @@ export const TabContent: React.FC<TabContentProps> = ({ figmaParams }) => {
   return (
     <TabWrapper>
       <TabInner>
-        <Title>Figma Comparator</Title>
+        <h1>Figma Comparator</h1>
 
         {figmaParams?.component && (
           <>
             <p>Figma Data:</p>
-            <Source
+            {/* <Source
               code={JSON.stringify(figmaParams?.component, null, 2)}
               language="json"
               format={true}
-            />
+            /> */}
           </>
         )}
 
         {figmaParams?.options && (
           <>
             <p>Comparator options:</p>
-            <Source
+            {/* <Source
               code={JSON.stringify(figmaParams?.options, null, 2)}
               language="json"
               format={true}
-            />
+            /> */}
           </>
         )}
 

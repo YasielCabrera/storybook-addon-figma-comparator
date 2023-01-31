@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import type { DecoratorFunction } from "@storybook/addons";
+import type { DecoratorFunction } from "@storybook/types";
 import { FIGMA_WRAPPER_CLASS, PARAM_KEY } from "../constants";
 import { FigmaParams } from "../types";
 import { FigmaComparator } from "../components/FigmaComparator";
@@ -31,7 +31,7 @@ export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
   return (
     <>
       <div style={compareWithFigma ? comparatorOptions?.componentStyle : null}>
-        {StoryFn()}
+        {StoryFn() as React.ReactNode}
       </div>
       <div className={FIGMA_WRAPPER_CLASS}>
         {compareWithFigma &&

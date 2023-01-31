@@ -10,6 +10,11 @@
  */
 // import { withRoundTrip } from "../withRoundTrip";
 
+import { PARAM_KEY } from "../constants";
 import { withFigmaComparator } from "../decorators/withFigmaComparator";
 
 export const decorators = [withFigmaComparator];
+
+export const globals = {
+  [PARAM_KEY]: false,
+};

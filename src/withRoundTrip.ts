@@ -1,5 +1,5 @@
 import { useChannel } from "@storybook/addons";
-import type { DecoratorFunction } from "@storybook/addons";
+import type { DecoratorFunction } from "@storybook/types";
 import { STORY_CHANGED } from "@storybook/core-events";
 import { EVENTS } from "./constants";
 

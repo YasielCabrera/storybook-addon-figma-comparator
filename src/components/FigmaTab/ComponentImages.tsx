@@ -35,8 +35,8 @@ export const ComponentImages: React.FC<ComponentImagesProps> = ({
 
   return (
     <Container>
-      {images.map((image) => (
-        <ImageWrapper key={image[1].toString()}>
+      {images.map((image, index) => (
+        <ImageWrapper key={`${index}-${image[1]}`}>
           <div>Viewport: {`>${image[0]}`}</div>
           <FigmaImage image={image[1]} />
         </ImageWrapper>
