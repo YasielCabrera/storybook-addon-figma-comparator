@@ -1,3 +1,5 @@
+import { StoryContext } from "@storybook/addons";
+
 export type IconWidthType = {
   width?: string | number;
   height?: string | number;
@@ -35,11 +37,11 @@ export type FigmaParams = {
 };
 
 export type ComparatorProps = {
-  component: FigmaComponent | FigmaComponentSet;
   nodeId: string;
   fileId: string;
   options?: FigmaParamsOptions;
   currentComponentOptions?: FigmaParamsOptions;
+  context: StoryContext;
 };
 
 export type WindowSize = {
@@ -50,6 +52,7 @@ export type WindowSize = {
 export function isFigmaComponentNode(
   component: FigmaComponentNode | unknown
 ): component is FigmaComponentNode {
+  if (!component) return false;
   const nodeComponent = component as FigmaComponentNode;
   return (
     Object.keys(component).length === 2 &&

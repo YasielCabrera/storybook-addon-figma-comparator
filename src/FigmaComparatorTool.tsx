@@ -4,9 +4,11 @@ import { IconButton } from "@storybook/components";
 import { TOOL_ID, PARAM_KEY } from "./constants";
 import { FigmaOutline } from "./components/icons/FigmaOutline";
 import { FigmaColors } from "./components/icons/FigmaColors";
+import useFigmaImageLoader from "./hooks/useFigmaImageLoader";
 
 export const FigmaComparatorTool = () => {
   const [globals, updateGlobals] = useGlobals();
+  useFigmaImageLoader();
 
   const compareWithFigma = globals[PARAM_KEY] || false;
 
