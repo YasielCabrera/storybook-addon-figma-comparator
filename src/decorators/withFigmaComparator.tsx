@@ -1,32 +1,18 @@
-import React, { useMemo } from "react";
+import React from "react";
 import type { DecoratorFunction } from "@storybook/addons";
 import { FIGMA_WRAPPER_CLASS, PARAM_KEY } from "../constants";
 import { FigmaParams } from "../types";
 import { FigmaComparator } from "../components/FigmaComparator";
 import { NoFigmaEnabled } from "../components/NoFigmaEnabled";
-import { useWindowWidth } from "../hooks/useWindowWidth";
-import { getCurrentComponentNode } from "../utils/figma";
+import useRightFigmaParamsViewport from "../hooks/useRightFigmaParamsViewport";
 
 export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
   const compareWithFigma = !!context.globals[PARAM_KEY];
   const figmaParams = context.parameters?.figma as FigmaParams;
   const hasFigmaComponent = !!figmaParams?.component;
 
-  const windowSize = useWindowWidth();
-  const [fileId, nodeId, comparatorOptions] = useMemo(() => {
-    if (!figmaParams) {
-      return [null, null, null];
-    }
-    const figmaNode = getCurrentComponentNode(
-      figmaParams?.component,
-      windowSize.width
-    );
-    return [
-      figmaNode?.component?.fileId,
-      figmaNode?.component?.nodeId,
-      figmaNode?.options,
-    ];
-  }, [figmaParams, windowSize]);
+  const [fileId, nodeId, comparatorOptions] =
+    useRightFigmaParamsViewport(figmaParams);
 
   return (
     <>
@@ -40,8 +26,8 @@ export const withFigmaComparator: DecoratorFunction = (StoryFn, context) => {
               fileId={fileId}
               nodeId={nodeId}
               currentComponentOptions={comparatorOptions}
-              component={figmaParams?.component}
               options={figmaParams?.options}
+              context={context}
             />
           ) : (
             <NoFigmaEnabled />
