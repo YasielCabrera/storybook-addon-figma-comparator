@@ -1,3 +1,19 @@
+# v0.0.11 (Fri Mar 10 2023)
+
+#### 🐛 Bug Fix
+
+- Cache images in the browser [#5](https://github.com/YasielCabrera/storybook-addon-figma-comparator/pull/5) ([@YasielCabrera](https://github.com/YasielCabrera))
+
+#### ⚠️ Pushed to `main`
+
+- Bump version ([@YasielCabrera](https://github.com/YasielCabrera))
+
+#### Authors: 1
+
+- Yasiel Cabrera ([@YasielCabrera](https://github.com/YasielCabrera))
+
+---
+
 # v0.0.10 (Mon Jan 30 2023)
 
 #### 🐛 Bug Fix
